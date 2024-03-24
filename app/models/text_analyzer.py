@@ -1,5 +1,4 @@
-from .english import EnglishTextAnalysis
-from .japanese import JapaneseTextAnalysis
+from .language import EnglishTextAnalysis, JapaneseTextAnalysis
 
 
 class TextAnalyzer:
