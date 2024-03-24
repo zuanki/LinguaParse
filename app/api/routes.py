@@ -1,5 +1,7 @@
 from flask import request, jsonify
-from app.api import utils
+from app.models import text_analyzer
+
+SUPPORTED_LANGUAGES = ['en', 'ja']
 
 
 def register_routes(app):
@@ -15,11 +17,9 @@ def register_routes(app):
         if not text:
             return jsonify({'error': 'No text provided'}), 400
 
-        if language == 'en':
-            analyzed_text = utils.analyze_english_text(text)
-        elif language == 'ja':
-            analyzed_text = utils.analyze_japanese_text(text)
-        else:
+        if language not in SUPPORTED_LANGUAGES:
             return jsonify({'error': 'Unsupported language'}), 400
 
-        return jsonify(analyzed_text)
+        analyzer = text_analyzer.TextAnalyzer(language)
+
+        return jsonify(analyzer.analyze_text(text))
