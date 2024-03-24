@@ -11,8 +11,7 @@ class TextAnalyzer:
             raise ValueError('Unsupported language')
 
     def analyze_text(self, text):
-        words = self.strategy.tokenize_text(text)
-        tagged_words = self.strategy.pos_tag(words)
+        words, tagged_words = self.strategy.analyze_text(text)
         analyzed_text = []
 
         for word, tag in tagged_words:

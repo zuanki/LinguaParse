@@ -3,11 +3,9 @@ from abc import ABC, abstractmethod
 
 class TextAnalysis(ABC):
     @abstractmethod
-    def tokenize_text(self, text):
-        pass
-
-    @abstractmethod
-    def pos_tag(self, words):
+    def analyze_text(self, text):
+        # Tokenize the text
+        # Tag the words with their part-of-speech
         pass
 
     @abstractmethod

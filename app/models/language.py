@@ -2,6 +2,7 @@ import nltk
 import re
 from .text_analysis import TextAnalysis
 from .dictionary import get_word
+import nagisa
 
 
 class EnglishTextAnalysis(TextAnalysis):
@@ -10,11 +11,14 @@ class EnglishTextAnalysis(TextAnalysis):
         nltk.download('punkt')
         nltk.download('averaged_perceptron_tagger')
 
-    def tokenize_text(self, text):
-        return nltk.word_tokenize(text)
+    def analyze_text(self, text):
+        # Tokenize the text
+        # Tag the words with their part-of-speech
 
-    def pos_tag(self, words):
-        return nltk.pos_tag(words, tagset='universal')
+        words = nltk.word_tokenize(text)
+        tagged_words = nltk.pos_tag(words, tagset='universal')
+
+        return words, tagged_words
 
     def get_definition(self, word):
         word_obj = get_word(word, 'en')
@@ -25,14 +29,13 @@ class EnglishTextAnalysis(TextAnalysis):
 
 
 class JapaneseTextAnalysis(TextAnalysis):
-    def tokenize_text(self, text):
-        # TODO: Implement a tokenizer for Japanese text
-        regex = r'[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+|[a-zA-Z0-9]+|[ａ-ｚＡ-Ｚ０-９]+|[々〆〤ヶ]+'
-        return re.findall(regex, text)
+    def analyze_text(self, text):
+        # Tokenize the text
+        # Tag the words with their part-of-speech
 
-    def pos_tag(self, words):
-        # TODO: Implement a part-of-speech tagger for Japanese text
-        return [(word, 'NOUN') for word in words]
+        words = nagisa.tagging(text)
+
+        return words.words, [(word, tag) for word, tag in zip(words.words, words.postags)]
 
     def get_definition(self, word):
         word_obj = get_word(word, 'ja')
