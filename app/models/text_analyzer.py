@@ -16,9 +16,11 @@ class TextAnalyzer:
 
         for word, tag in tagged_words:
             definition = self.strategy.get_definition(word)
+            pronounce = self.strategy.get_pronounce(word)
             analyzed_text.append({
                 'word': word,
                 'pos': tag,
+                'pronounce': pronounce,
                 'definition': definition
             })
 

@@ -5,6 +5,10 @@ SUPPORTED_LANGUAGES = ['en', 'ja']
 
 
 def register_routes(app):
+    @app.route('/', methods=['GET'])
+    def index():
+        return jsonify({'message': 'Hello world!'})
+    
     @app.route('/api/v1/analyze', methods=['POST'])
     def analyze_text():
         # {

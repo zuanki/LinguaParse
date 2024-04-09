@@ -10,6 +10,7 @@ class EnglishTextAnalysis(TextAnalysis):
         # Initialize NLTK data
         nltk.download('punkt')
         nltk.download('averaged_perceptron_tagger')
+        nltk.download('universal_tagset')
 
     def analyze_text(self, text):
         # Tokenize the text
@@ -26,6 +27,13 @@ class EnglishTextAnalysis(TextAnalysis):
             return word_obj.definition
         else:
             return "Definition not found"
+        
+    def get_pronounce(self, word):
+        word_obj = get_word(word, 'en')
+        if word_obj:
+            return word_obj.pronounce
+        else:
+            return "N/A"
 
 
 class JapaneseTextAnalysis(TextAnalysis):
@@ -43,3 +51,10 @@ class JapaneseTextAnalysis(TextAnalysis):
             return word_obj.definition
         else:
             return "Definition not found"
+    
+    def get_pronounce(self, word):
+        word_obj = get_word(word, 'ja')
+        if word_obj:
+            return word_obj.pronounce
+        else:
+            return "N/A"
