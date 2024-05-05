@@ -11,17 +11,29 @@ class TextAnalyzer:
             raise ValueError('Unsupported language')
 
     def analyze_text(self, text):
-        words, tagged_words = self.strategy.analyze_text(text)
         analyzed_text = []
+        paragraphs = text.split('\n')
+        print(len(paragraphs))
+        for p in paragraphs:
+            words, tagged_words = self.strategy.analyze_text(p)
 
-        for word, tag in tagged_words:
-            definition = self.strategy.get_definition(word)
-            pronounce = self.strategy.get_pronounce(word)
+            for word, tag in tagged_words:
+                pronounce = 'N/A'
+                definition = 'N/A'
+                # definition = self.strategy.get_definition(word)
+                # pronounce = self.strategy.get_pronounce(word)
+                analyzed_text.append({
+                    'word': word,
+                    'pos': tag,
+                    'pronounce': pronounce,
+                    'definition': definition
+                })
+                
             analyzed_text.append({
-                'word': word,
-                'pos': tag,
-                'pronounce': pronounce,
-                'definition': definition
-            })
+                    'word': '\n',
+                    'pos': '改行',
+                    'pronounce': 'かいぎょう',
+                    'definition': 'Enter'
+                })
 
         return analyzed_text

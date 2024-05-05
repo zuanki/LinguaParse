@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from flask_cors import cross_origin
 from app.models import text_analyzer
 
 SUPPORTED_LANGUAGES = ['en', 'ja']
@@ -10,6 +11,7 @@ def register_routes(app):
         return jsonify({'message': 'Hello world!'})
     
     @app.route('/api/v1/analyze', methods=['POST'])
+    @cross_origin()
     def analyze_text():
         # {
         #     "text": "This is a test message.",
